@@ -1,6 +1,8 @@
 package net.therap.recipe.model;
 
 import javax.persistence.*;
+import java.util.HashSet;
+import java.util.Set;
 
 /**
  * @author khandaker.maruf
@@ -20,6 +22,9 @@ public class Recipe extends Persistence{
 
     @Lob
     private Byte[] image;
+
+    @OneToMany(cascade = CascadeType.ALL, mappedBy = "recipe")
+    private Set<Ingredient> ingredients = new HashSet<>();
 
     public String getDescription() {
         return description;
