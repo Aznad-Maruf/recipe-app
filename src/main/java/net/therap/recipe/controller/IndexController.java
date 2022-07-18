@@ -1,5 +1,7 @@
 package net.therap.recipe.controller;
 
+import net.therap.recipe.model.Category;
+import net.therap.recipe.repository.CategoryRepository;
 import org.springframework.stereotype.Controller;
 import org.springframework.web.bind.annotation.RequestMapping;
 
@@ -10,8 +12,17 @@ import org.springframework.web.bind.annotation.RequestMapping;
 @Controller
 public class IndexController {
 
+    private CategoryRepository categoryRepository;
+
+    public IndexController(CategoryRepository categoryRepository) {
+        this.categoryRepository = categoryRepository;
+    }
+
     @RequestMapping({"", "/", "/index"})
     public String getIndexPage() {
+
+        Category category = categoryRepository.findByDescriptionContainingIgnoreCase("meat").get();
+        System.out.println(category.getDescription());
         return "index";
     }
 }
